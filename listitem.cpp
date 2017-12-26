@@ -13,6 +13,8 @@ ListItem::ListItem(const QString &title, QWidget *parent)
     m_mainLayout->addStretch();
     m_mainLayout->addWidget(m_checkBox);
     m_mainLayout->addSpacing(10);
+
+    m_checkBox->setChecked(true);
 }
 
 bool ListItem::isChecked()
