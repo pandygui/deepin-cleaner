@@ -2,6 +2,7 @@
 #define SCANPAGE_H
 
 #include <QWidget>
+#include <QVBoxLayout>
 
 class ScanPage : public QWidget
 {
@@ -10,6 +11,8 @@ class ScanPage : public QWidget
 public:
     ScanPage(QWidget *parent = nullptr);
 
+private:
+    QVBoxLayout *m_layout;
 };
 
 #endif // SCANPAGE_H

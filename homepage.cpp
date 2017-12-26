@@ -19,7 +19,7 @@ HomePage::HomePage(QWidget *parent)
     m_mainLayout->setMargin(25);
     m_mainLayout->addStretch();
     m_mainLayout->addWidget(m_listWidget, 0, Qt::AlignVCenter);
-    m_mainLayout->addSpacing(20);
+    m_mainLayout->addStretch();
     m_mainLayout->addWidget(m_scanButton, 0, Qt::AlignVCenter);
 
     m_scanButton->setObjectName("BlueButton");

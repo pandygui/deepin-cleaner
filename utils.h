@@ -11,6 +11,7 @@ namespace Utils
     QFileInfoList getCrashReports();
     QFileInfoList getAppLogs();
     QFileInfoList getAppCaches();
+    QString getHomePath();
 }
 
 #endif // UTILS_H
