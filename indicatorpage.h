@@ -13,7 +13,10 @@ class IndicatorPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit IndicatorPage(QWidget *parent = nullptr);
+    IndicatorPage(QWidget *parent = nullptr);
+
+    void animationStart();
+    void animationStop();
 
 private:
     QVBoxLayout *m_layout;

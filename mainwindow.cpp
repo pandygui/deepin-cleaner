@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "dtitlebar.h"
 #include "dhidpihelper.h"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : DMainWindow(parent),
@@ -30,4 +31,10 @@ MainWindow::~MainWindow()
 void MainWindow::handleBtnClicked()
 {
     m_centralLayout->setCurrentIndex(1);
+    m_indicatorPage->animationStart();
+
+    QTimer::singleShot(500, this, [=] {
+        m_centralLayout->setCurrentIndex(2);
+        m_indicatorPage->animationStop();
+    });
 }

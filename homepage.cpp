@@ -26,7 +26,7 @@ HomePage::HomePage(QWidget *parent)
     m_scanButton->setStyleSheet("#BlueButton {"
                                 "color: #2CA7F8;"
                                 "border: 1px solid #2ca7f8;"
-                                "border-radius: 4px;"
+                                "border-radius: 2px;"
                                 "width: 120px;"
                                 "height: 36px;"
                                 "}"

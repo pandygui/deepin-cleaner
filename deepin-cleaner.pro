@@ -33,7 +33,8 @@ SOURCES += \
     listitem.cpp \
     utils.cpp \
     scanpage.cpp \
-    indicatorpage.cpp
+    indicatorpage.cpp \
+    itemwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     listitem.h \
     utils.h \
     scanpage.h \
-    indicatorpage.h
+    indicatorpage.h \
+    itemwidget.h
 
 RESOURCES += \
     deepin-cleaner.qrc
