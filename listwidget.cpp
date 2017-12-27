@@ -4,6 +4,7 @@ ListWidget::ListWidget(QWidget *parent)
     : QListWidget(parent)
 {
     setSelectionMode(QAbstractItemView::NoSelection);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setStyleSheet("QListView {"
                   "border: 1px solid #eee;"
                   "border-radius: 4px;"
@@ -22,7 +23,7 @@ void ListWidget::addChild(const QString &title)
     QListWidgetItem *item = new QListWidgetItem;
     ListItem *child = new ListItem(title);
 
-    item->setSizeHint(QSize(100, 65));
+    item->setSizeHint(QSize(100, 60));
     addItem(item);
     setItemWidget(item, child);
 }

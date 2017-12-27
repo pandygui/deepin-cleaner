@@ -27,7 +27,7 @@ ScanPage::ScanPage(QWidget *parent)
     m_crWidget->setTitle(tr("Crash Reports"));
     m_alWidget->setTitle(tr("Application Logs"));
     m_acWidget->setTitle(tr("Application Caches"));
-    
+
     m_layout->setMargin(25);
     m_layout->addWidget(m_tipsLabel, 0, Qt::AlignHCenter);
     m_layout->addWidget(m_totalLabel, 0, Qt::AlignHCenter | Qt::AlignTop);

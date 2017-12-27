@@ -1,4 +1,5 @@
 #include "homepage.h"
+#include <QSvgWidget>
 
 HomePage::HomePage(QWidget *parent)
     : QWidget(parent),
@@ -11,11 +12,14 @@ HomePage::HomePage(QWidget *parent)
     font.setPointSize(18);
     m_tipsLabel->setFont(font);
     m_tipsLabel->setText(tr("Select the items to clear"));
-    m_listWidget->setFixedHeight(300);
+    m_listWidget->setFixedHeight(240);
 
-    m_mainLayout->addStretch();
+    QSvgWidget *homeIcon = new QSvgWidget(":/images/home-icon.svg");
+    homeIcon->setFixedSize(65, 65);
+
+    m_mainLayout->addWidget(homeIcon, 0, Qt::AlignHCenter);
+    m_mainLayout->addSpacing(10);
     m_mainLayout->addWidget(m_tipsLabel, 0, Qt::AlignHCenter);
-    m_mainLayout->addStretch();
     m_mainLayout->setMargin(25);
     m_mainLayout->addStretch();
     m_mainLayout->addWidget(m_listWidget, 0, Qt::AlignVCenter);

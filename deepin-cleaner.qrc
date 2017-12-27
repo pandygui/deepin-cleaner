@@ -7,5 +7,6 @@
         <file>images/logs.png</file>
         <file>images/package.png</file>
         <file>images/uncheck.svg</file>
+        <file>images/home-icon.svg</file>
     </qresource>
 </RCC>

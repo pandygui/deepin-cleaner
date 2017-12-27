@@ -60,14 +60,14 @@ QString Utils::getHomePath()
 QString Utils::formatBytes(unsigned long long bytes)
 {
     if (bytes < 1024)
-        return QString::number(bytes, 'r', 1) + "B";
+        return QString::number(bytes, 'r', 1) + " B";
 
     else if (bytes / 1024 < 1024)
-        return QString::number(bytes / 1024.0, 'r', 1) + "KB";
+        return QString::number(bytes / 1024.0, 'r', 1) + " KB";
 
     else if (bytes / 1024 / 1024 < 1024)
-        return QString::number(bytes / 1024.0 / 1024.0, 'r', 1) + "MB";
+        return QString::number(bytes / 1024.0 / 1024.0, 'r', 1) + " MB";
 
     else if (bytes / 1024 / 1024 / 1024 < 1024)
-        return QString::number(bytes / 1024.0 / 1024.0 / 1024.0, 'r', 1) + "GB";
+        return QString::number(bytes / 1024.0 / 1024.0 / 1024.0, 'r', 1) + " GB";
 }

@@ -9,7 +9,7 @@ ItemWidget::ItemWidget(QWidget *parent)
     m_layout->addWidget(m_titleLabel);
     m_layout->addStretch();
     m_layout->addWidget(m_sizeLabel);
-    m_sizeLabel->setStyleSheet("QLabel { color: #6D6D6D; }");
+    m_sizeLabel->setStyleSheet("QLabel { color: #585858; }");
 
     setFixedHeight(40);
 }
