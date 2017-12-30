@@ -8,5 +8,6 @@
         <file>images/package.png</file>
         <file>images/uncheck.svg</file>
         <file>images/home-icon.svg</file>
+        <file>qss/style.qss</file>
     </qresource>
 </RCC>

@@ -4,6 +4,18 @@
 #include <QDir>
 #include <QStandardPaths>
 
+QString Utils::getQssContent(const QString &filePath)
+{
+    QFile file(filePath);
+    QString qss;
+
+    if (file.open(QIODevice::ReadOnly)) {
+        qss = file.readAll();
+    }
+
+    return qss;
+}
+
 quint64 Utils::getFileSize(const QString &filePath)
 {
     QFileInfo info(filePath);
@@ -55,7 +67,6 @@ QString Utils::getHomePath()
 {
     return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 }
-
 
 QString Utils::formatBytes(unsigned long long bytes)
 {

@@ -6,15 +6,16 @@ IndicatorPage::IndicatorPage(QWidget *parent) :
     m_layout(new QVBoxLayout(this))
 {
     QFont font;
-    font.setPointSize(20);
+    font.setPointSize(15);
     m_tipsLabel->setFont(font);
 
     m_spinner = new DSpinner;
-    m_spinner->setFixedSize(70, 70);
+    m_spinner->setBackgroundColor(Qt::transparent);
+    m_spinner->setFixedSize(40, 40);
 
     m_layout->addStretch();
     m_layout->addWidget(m_spinner, 0, Qt::AlignHCenter);
-    m_layout->addSpacing(30);
+    m_layout->addSpacing(20);
     m_layout->addWidget(m_tipsLabel, 0, Qt::AlignHCenter);
     m_layout->addStretch();
 }

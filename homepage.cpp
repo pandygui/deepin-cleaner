@@ -1,4 +1,5 @@
 #include "homepage.h"
+#include "listitem.h"
 #include <QSvgWidget>
 
 HomePage::HomePage(QWidget *parent)
@@ -12,7 +13,6 @@ HomePage::HomePage(QWidget *parent)
     font.setPointSize(18);
     m_tipsLabel->setFont(font);
     m_tipsLabel->setText(tr("Select the items to clear"));
-    m_listWidget->setFixedHeight(240);
 
     QSvgWidget *homeIcon = new QSvgWidget(":/images/home-icon.svg");
     homeIcon->setFixedSize(65, 65);
@@ -27,20 +27,6 @@ HomePage::HomePage(QWidget *parent)
     m_mainLayout->addWidget(m_scanButton, 0, Qt::AlignVCenter);
 
     m_scanButton->setObjectName("BlueButton");
-    m_scanButton->setStyleSheet("#BlueButton {"
-                                "color: #2CA7F8;"
-                                "border: 1px solid #2ca7f8;"
-                                "border-radius: 2px;"
-                                "width: 120px;"
-                                "height: 36px;"
-                                "}"
-                                "#BlueButton:hover {"
-                                "color: white;"
-                                "background-color: qlineargradient(x1:0 y1:0, x2:0 y2:1, stop:0 #8ccfff, stop:1 #4bb8ff);"
-                                "}"
-                                "#BlueButton:pressed {"
-                                "background-color: qlineargradient(x1:0 y1:0, x2:0 y2:1, stop:0 #0b8cff, stop:1 #0aa1ff);"
-                                "}");
 
     connect(m_scanButton, &QPushButton::clicked, this, &HomePage::scanBtnClicked);
 }

@@ -21,11 +21,7 @@ signals:
     void clearBtnClicked();
 
 private:
-    int scan(const QFileInfoList &infos);
-    void scanPackageCaches();
-    void scanCrashReports();
-    void scanApplicationLogs();
-    void scanApplicationCaches();
+    quint64 scan(const QFileInfoList &infos);
 
 private:
     QVBoxLayout *m_layout;

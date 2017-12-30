@@ -1,40 +1,63 @@
 #include "listwidget.h"
+#include <QPainter>
+#include <QMouseEvent>
+#include <QDebug>
 
 ListWidget::ListWidget(QWidget *parent)
-    : QListWidget(parent)
+    : QWidget(parent),
+      m_layout(new QVBoxLayout(this)),
+      m_packageCachesWidget(new ListItem(tr("Package Caches"))),
+      m_crashReportsWidget(new ListItem(tr("Crash Reports"))),
+      m_appLogsWidget(new ListItem(tr("Application Logs"))),
+      m_appCachesWidget(new ListItem(tr("Application Caches"), false))
 {
-    setSelectionMode(QAbstractItemView::NoSelection);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setStyleSheet("QListView {"
-                  "border: 1px solid #eee;"
-                  "border-radius: 4px;"
-                  "}");
+    m_layout->setMargin(0);
+    m_layout->addWidget(m_packageCachesWidget);
+    m_layout->addWidget(m_crashReportsWidget);
+    m_layout->addWidget(m_appLogsWidget);
+    m_layout->addWidget(m_appCachesWidget);
 
-    addChild(tr("Package Caches"));
-    addChild(tr("Crash Reports"));
-    addChild(tr("Application Logs"));
-    addChild(tr("Application Caches"));
-
-    connect(this, &ListWidget::itemClicked, this, &ListWidget::handleItemClicked);
+    setFixedHeight(240);
 }
 
-void ListWidget::addChild(const QString &title)
+void ListWidget::paintEvent(QPaintEvent *e)
 {
-    QListWidgetItem *item = new QListWidgetItem;
-    ListItem *child = new ListItem(title);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing, true);
 
-    item->setSizeHint(QSize(100, 60));
-    addItem(item);
-    setItemWidget(item, child);
+    painter.setPen(QColor("#bbbbbb"));
+    painter.setBrush(Qt::white);
+    painter.drawRoundedRect(rect(), 8, 8);
 }
 
-void ListWidget::handleItemClicked()
+void ListWidget::mousePressEvent(QMouseEvent *e)
 {
-    ListItem *item = qobject_cast<ListItem *>(indexWidget(currentIndex()));
+    const int currentIndex = e->y() / 60;
 
-    if (item->isChecked()) {
-        item->setChecked(false);
-    } else {
-        item->setChecked(true);
+    switch (currentIndex) {
+    case 0:
+        if (m_packageCachesWidget->isChecked())
+            m_packageCachesWidget->setChecked(false);
+        else
+            m_packageCachesWidget->setChecked(true);
+        break;
+    case 1:
+        if (m_crashReportsWidget->isChecked())
+            m_crashReportsWidget->setChecked(false);
+        else
+            m_crashReportsWidget->setChecked(true);
+        break;
+    case 2:
+        if (m_appLogsWidget->isChecked())
+            m_appLogsWidget->setChecked(false);
+        else
+            m_appLogsWidget->setChecked(true);
+        break;
+    case 3:
+        if (m_appCachesWidget->isChecked())
+            m_appCachesWidget->setChecked(false);
+        else
+            m_appCachesWidget->setChecked(true);
+        break;
     }
 }

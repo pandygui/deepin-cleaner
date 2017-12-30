@@ -20,6 +20,7 @@ ScanPage::ScanPage(QWidget *parent)
     m_totalLabel->setText("0.0 MB");
     m_totalLabel->setFont(font);
 
+    m_clearButton->setObjectName("BlueButton");
     m_clearButton->setFixedHeight(40);
 
     // init ItemWidget
@@ -47,13 +48,20 @@ ScanPage::ScanPage(QWidget *parent)
 
 void ScanPage::start()
 {
-    scanPackageCaches();
-    scanCrashReports();
-    scanApplicationLogs();
-    scanApplicationCaches();
+    quint64 packageCachesSize = scan(Utils::getDpkgPackages());
+    quint64 crashReportsSize = scan(Utils::getCrashReports());
+    quint64 appLogsSize = scan(Utils::getAppLogs());
+    quint64 appCachesSize = scan(Utils::getAppCaches());
+    quint64 totalSize = packageCachesSize + crashReportsSize + appLogsSize + appCachesSize;
+
+    m_totalLabel->setText(Utils::formatBytes(totalSize));
+    m_pcWidget->setSize(Utils::formatBytes(packageCachesSize));
+    m_crWidget->setSize(Utils::formatBytes(crashReportsSize));
+    m_alWidget->setSize(Utils::formatBytes(appLogsSize));
+    m_acWidget->setSize(Utils::formatBytes(appCachesSize));
 }
 
-int ScanPage::scan(const QFileInfoList &infos)
+quint64 ScanPage::scan(const QFileInfoList &infos)
 {
     quint64 totalSize = 0;
 
@@ -65,28 +73,4 @@ int ScanPage::scan(const QFileInfoList &infos)
     }
 
     return totalSize;
-}
-
-void ScanPage::scanPackageCaches()
-{
-    m_pcWidget->setSize(Utils::formatBytes(scan(Utils::getDpkgPackages())));
-    m_pcWidget->show();
-}
-
-void ScanPage::scanCrashReports()
-{
-    m_crWidget->setSize(Utils::formatBytes(scan(Utils::getCrashReports())));
-    m_crWidget->show();
-}
-
-void ScanPage::scanApplicationLogs()
-{
-    m_alWidget->setSize(Utils::formatBytes(scan(Utils::getAppLogs())));
-    m_alWidget->show();
-}
-
-void ScanPage::scanApplicationCaches()
-{
-    m_acWidget->setSize(Utils::formatBytes(scan(Utils::getAppCaches())));
-    m_acWidget->show();
 }

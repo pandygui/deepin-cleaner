@@ -1,8 +1,9 @@
 #include "listitem.h"
 #include <QPainter>
 
-ListItem::ListItem(const QString &title, QWidget *parent)
+ListItem::ListItem(const QString &title, bool isVisible, QWidget *parent)
     : QWidget(parent),
+      m_isSeparatorVisible(isVisible),
       m_mainLayout(new QHBoxLayout(this)),
       m_titleLabel(new QLabel),
       m_checkBox(new QCheckBox)
@@ -14,7 +15,9 @@ ListItem::ListItem(const QString &title, QWidget *parent)
     m_mainLayout->addWidget(m_checkBox);
     m_mainLayout->addSpacing(10);
 
+    m_checkBox->setFocusPolicy(Qt::NoFocus);
     m_checkBox->setChecked(true);
+    setFixedHeight(60);
 }
 
 bool ListItem::isChecked()
@@ -29,6 +32,10 @@ void ListItem::setChecked(bool isCheck)
 
 void ListItem::paintEvent(QPaintEvent *)
 {
+    if (!m_isSeparatorVisible) {
+        return;
+    }
+
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 

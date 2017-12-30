@@ -2,6 +2,7 @@
 #include "dtitlebar.h"
 #include "dhidpihelper.h"
 #include <QTimer>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : DMainWindow(parent),
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(m_centralWidget);
 
     connect(m_homePage, &HomePage::scanBtnClicked, this, &MainWindow::handleBtnClicked);
+    connect(m_scanPage, &ScanPage::clearBtnClicked, this, &MainWindow::handleClearBtnClicked);
 }
 
 MainWindow::~MainWindow()
@@ -37,4 +39,9 @@ void MainWindow::handleBtnClicked()
         m_centralLayout->setCurrentIndex(2);
         m_indicatorPage->animationStop();
     });
+}
+
+void MainWindow::handleClearBtnClicked()
+{
+    qDebug() << "hello";
 }

@@ -1,11 +1,11 @@
 #ifndef LISTWIDGET_H
 #define LISTWIDGET_H
 
-#include <QListWidget>
-#include <QListWidgetItem>
+#include <QWidget>
+#include <QVBoxLayout>
 #include "listitem.h"
 
-class ListWidget : public QListWidget
+class ListWidget : public QWidget
 {
     Q_OBJECT
 
@@ -14,8 +14,16 @@ public:
 
     void addChild(const QString &title);
 
-private slots:
-    void handleItemClicked();
+protected:
+    void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent *);
+
+private:
+    QVBoxLayout *m_layout;
+    ListItem *m_packageCachesWidget;
+    ListItem *m_crashReportsWidget;
+    ListItem *m_appLogsWidget;
+    ListItem *m_appCachesWidget;
 };
 
 #endif // LISTWIDGET_H

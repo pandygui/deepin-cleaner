@@ -6,6 +6,7 @@
 
 namespace Utils
 {
+    QString getQssContent(const QString &filePath);
     quint64 getFileSize(const QString &filePath);
     QFileInfoList getDpkgPackages();
     QFileInfoList getCrashReports();

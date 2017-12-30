@@ -19,6 +19,7 @@ public:
 
 private slots:
     void handleBtnClicked();
+    void handleClearBtnClicked();
 
 private:
     QWidget *m_centralWidget;
