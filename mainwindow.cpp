@@ -1,47 +1,38 @@
+/*
+ * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ *
+ * Author:     rekols <rekols@foxmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "mainwindow.h"
-#include "dtitlebar.h"
-#include "dhidpihelper.h"
-#include <QTimer>
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : DMainWindow(parent),
-      m_centralWidget(new QWidget),
-      m_centralLayout(new QStackedLayout(m_centralWidget)),
-      m_homePage(new HomePage),
-      m_indicatorPage(new IndicatorPage),
-      m_scanPage(new ScanPage)
+      m_layout(new QStackedLayout),
+      m_homePage(new HomePage)
 {
-    if (titlebar()) {
-        titlebar()->setTitle("");
-    }
+    QWidget *centralWidget = new QWidget;
+    centralWidget->setLayout(m_layout);
 
-    m_centralLayout->addWidget(m_homePage);
-    m_centralLayout->addWidget(m_indicatorPage);
-    m_centralLayout->addWidget(m_scanPage);
+    m_layout->addWidget(m_homePage);
 
-    setCentralWidget(m_centralWidget);
-
-    connect(m_homePage, &HomePage::scanBtnClicked, this, &MainWindow::handleBtnClicked);
-    connect(m_scanPage, &ScanPage::clearBtnClicked, this, &MainWindow::handleClearBtnClicked);
+    setCentralWidget(centralWidget);
+    setFixedSize(400, 550);
 }
 
 MainWindow::~MainWindow()
 {
-}
-
-void MainWindow::handleBtnClicked()
-{
-    m_centralLayout->setCurrentIndex(1);
-    m_indicatorPage->animationStart();
-
-    QTimer::singleShot(500, this, [=] {
-        m_centralLayout->setCurrentIndex(2);
-        m_indicatorPage->animationStop();
-    });
-}
-
-void MainWindow::handleClearBtnClicked()
-{
-    qDebug() << "hello";
 }

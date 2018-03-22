@@ -17,29 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "homepage.h"
-#include <QVBoxLayout>
+#include "listview.h"
 
-HomePage::HomePage(QWidget *parent)
-    : QWidget(parent),
-      m_listView(new ListView),
-      m_listModel(new ListModel)
+ListView::ListView(QWidget *parent)
+    : QListView(parent)
 {
-    m_listModel->append("Package Caches");
-    m_listModel->append("Crash Reports");
-    m_listModel->append("Application Logs");
-    m_listModel->append("Application Caches");
-
-    m_listView->setModel(m_listModel);
-    m_listView->setItemDelegate(new ListDelegate);
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(m_listView);
-    
-    connect(m_listView, &ListView::entered, m_listModel, &ListModel::setHoveredIndex);
-    connect(m_listView, &ListView::clicked, m_listModel, &ListModel::setSelectedIndex);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    setVerticalScrollMode(ScrollPerPixel);
+    setSelectionMode(NoSelection);
+    setMouseTracking(true);
 }
 
-HomePage::~HomePage()
+ListView::~ListView()
 {
+}
+
+void ListView::leaveEvent(QEvent *e)
+{
+    QListView::leaveEvent(e);
+
+    emit entered(QModelIndex());
 }

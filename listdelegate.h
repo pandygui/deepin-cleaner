@@ -17,29 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "homepage.h"
-#include <QVBoxLayout>
+#ifndef LISTDELEGATE_H
+#define LISTDELEGATE_H
 
-HomePage::HomePage(QWidget *parent)
-    : QWidget(parent),
-      m_listView(new ListView),
-      m_listModel(new ListModel)
+#include <QAbstractItemDelegate>
+
+class ListDelegate : public QAbstractItemDelegate
 {
-    m_listModel->append("Package Caches");
-    m_listModel->append("Crash Reports");
-    m_listModel->append("Application Logs");
-    m_listModel->append("Application Caches");
+    Q_OBJECT
 
-    m_listView->setModel(m_listModel);
-    m_listView->setItemDelegate(new ListDelegate);
+public:
+    ListDelegate(QObject *parent = nullptr);
+    ~ListDelegate();
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(m_listView);
-    
-    connect(m_listView, &ListView::entered, m_listModel, &ListModel::setHoveredIndex);
-    connect(m_listView, &ListView::clicked, m_listModel, &ListModel::setSelectedIndex);
-}
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+};
 
-HomePage::~HomePage()
-{
-}
+#endif

@@ -17,29 +17,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "homepage.h"
-#include <QVBoxLayout>
+#ifndef LISTMODEL_H
+#define LISTMODEL_H
 
-HomePage::HomePage(QWidget *parent)
-    : QWidget(parent),
-      m_listView(new ListView),
-      m_listModel(new ListModel)
+#include <QAbstractListModel>
+
+class ListModel : public QAbstractListModel
 {
-    m_listModel->append("Package Caches");
-    m_listModel->append("Crash Reports");
-    m_listModel->append("Application Logs");
-    m_listModel->append("Application Caches");
+    Q_OBJECT
 
-    m_listView->setModel(m_listModel);
-    m_listView->setItemDelegate(new ListDelegate);
+public:
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(m_listView);
-    
-    connect(m_listView, &ListView::entered, m_listModel, &ListModel::setHoveredIndex);
-    connect(m_listView, &ListView::clicked, m_listModel, &ListModel::setSelectedIndex);
-}
+    enum ItemRole {
+        ItemTextRole = Qt::DisplayRole,
+        ItemSelectedRole,
+        ItemHoverRole
+    };
 
-HomePage::~HomePage()
-{
-}
+    ListModel(QObject *parent = nullptr);
+    ~ListModel();
+
+    int rowCount(const QModelIndex &index) const;
+    QVariant data(const QModelIndex &index, int role) const;
+
+    void setHoveredIndex(const QModelIndex &index);
+    void setSelectedIndex(const QModelIndex &index);
+
+public slots:
+    void append(const QString &text);
+    void clear();
+
+private:
+    QList<QString> m_options;
+    QList<bool> m_selecteds;
+    QModelIndex m_hoveredIndex;
+};
+
+#endif
